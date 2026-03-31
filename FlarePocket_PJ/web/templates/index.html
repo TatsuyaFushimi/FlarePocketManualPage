@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlarePocket</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f5f5f5; color: #222; }
+  header { background: #1a1a2e; color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+  header h1 { font-size: 1.2rem; font-weight: 600; letter-spacing: .04em; }
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Card */
+  .card { background: #fff; border-radius: 10px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
+  .card h2 { font-size: .95rem; font-weight: 600; color: #555; margin-bottom: 16px; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* Input */
+  .input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  input[type=text], input[type=file] { flex: 1; padding: 10px 14px; border: 1px solid #ddd; border-radius: 6px; font-size: .95rem; }
+  input[type=text]:focus { outline: none; border-color: #5b8dee; box-shadow: 0 0 0 3px rgba(91,141,238,.15); }
+  .or { display: flex; align-items: center; gap: 10px; color: #aaa; font-size: .85rem; margin: 8px 0; }
+  .or::before, .or::after { content: ""; flex: 1; height: 1px; background: #e5e5e5; }
+
+  /* Checkbox */
+  .opt { display: flex; align-items: center; gap: 8px; font-size: .9rem; color: #555; margin-bottom: 16px; }
+  .opt input { width: 16px; height: 16px; accent-color: #5b8dee; }
+
+  /* Button */
+  button { padding: 10px 22px; border: none; border-radius: 6px; font-size: .95rem; cursor: pointer; font-weight: 500; transition: opacity .15s; }
+  button:hover { opacity: .85; }
+  .btn-primary { background: #5b8dee; color: #fff; }
+  .btn-sm { padding: 5px 12px; font-size: .8rem; }
+  .btn-ok { background: #34c759; color: #fff; }
+  .btn-ng { background: #ff3b30; color: #fff; }
+  .btn-add { background: #8e8e93; color: #fff; }
+
+  /* Progress */
+  #progress-area { display: none; }
+  .progress-bar-wrap { background: #e5e5e5; border-radius: 99px; height: 8px; overflow: hidden; margin: 10px 0; }
+  .progress-bar { height: 100%; background: #5b8dee; border-radius: 99px; transition: width .4s; }
+  #progress-text { font-size: .9rem; color: #666; }
+
+  /* Report */
+  #report-area { display: none; }
+  .issue { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+  .issue:last-child { border-bottom: none; }
+  .issue-meta { display: flex; gap: 6px; align-items: center; min-width: 130px; flex-shrink: 0; }
+  .tc { font-size: .82rem; color: #888; font-variant-numeric: tabular-nums; }
+  .rule-badge { font-size: .75rem; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: #eef2ff; color: #5b8dee; white-space: nowrap; }
+  .issue-desc { flex: 1; font-size: .9rem; line-height: 1.5; }
+  .issue-desc.faded { opacity: .4; text-decoration: line-through; }
+  .feedback-btns { display: flex; gap: 4px; flex-shrink: 0; }
+
+  /* Missed */
+  .missed-issue { background: #fffbe6; border-left: 3px solid #f0a500; padding: 8px 12px; border-radius: 0 6px 6px 0; margin: 6px 0; font-size: .9rem; }
+  .add-form { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .add-form input { padding: 7px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: .85rem; }
+  .add-form input[name=timecode] { width: 80px; }
+  .add-form input[name=rule] { width: 70px; }
+  .add-form input[name=desc] { flex: 1; min-width: 160px; }
+
+  /* History */
+  .hist-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: .87rem; }
+  .hist-item:last-child { border-bottom: none; }
+  .hist-src { color: #555; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 420px; }
+  .hist-status { font-size: .78rem; padding: 2px 8px; border-radius: 4px; }
+  .s-done { background: #e6f9ee; color: #1a7f37; }
+  .s-processing { background: #fff3cd; color: #856404; }
+  .s-error { background: #fde8e8; color: #c0392b; }
+  .hist-link { color: #5b8dee; cursor: pointer; font-size: .82rem; text-decoration: underline; margin-left: 8px; }
+
+  .summary { font-size: .88rem; color: #666; margin-bottom: 12px; }
+  .empty { color: #aaa; font-size: .9rem; text-align: center; padding: 20px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 10l-4 4l6 6l4-16l-16 4l6 6l4-4"/></svg>
+  <h1>FlarePocket</h1>
+</header>
+
+<div class="container">
+
+  <!-- Submit form -->
+  <div class="card">
+    <h2>新規添削</h2>
+    <div class="input-row">
+      <input type="text" id="url-input" placeholder="YouTube URL を入力...">
+    </div>
+    <div class="or">または</div>
+    <div class="input-row">
+      <input type="file" id="file-input" accept="video/*">
+    </div>
+    <div class="opt">
+      <input type="checkbox" id="slide-check">
+      <label for="slide-check">スライドの指摘を含める</label>
+    </div>
+    <div class="opt" style="gap:16px;flex-wrap:wrap;">
+      <span style="font-size:.85rem;color:#888;font-weight:600;">エンジン：</span>
+      <label style="display:flex;align-items:center;gap:6px;font-size:.9rem;">
+        <input type="radio" name="engine" value="claude" checked> Claude（フレーム解析）
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;font-size:.9rem;">
+        <input type="radio" name="engine" value="gemini"> Gemini（動画直接解析）
+      </label>
+    </div>
+    <button class="btn-primary" onclick="submitJob()">添削スタート</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="card" id="progress-area">
+    <h2>処理中</h2>
+    <div id="progress-text">待機中...</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Report -->
+  <div class="card" id="report-area">
+    <h2>添削レポート</h2>
+    <div id="report-summary" class="summary"></div>
+    <div id="issues-list"></div>
+
+    <h2 style="margin-top:20px">見逃し追加</h2>
+    <div id="missed-list"></div>
+    <div class="add-form">
+      <input name="timecode" placeholder="MM:SS" id="add-tc">
+      <input name="rule" placeholder="HY1" id="add-rule">
+      <input name="desc" placeholder="指摘内容" id="add-desc">
+      <button class="btn-primary btn-sm" onclick="addMissed()">追加</button>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="card">
+    <h2>履歴</h2>
+    <div id="history-list"><div class="empty">履歴はありません</div></div>
+  </div>
+
+</div>
+
+<script>
+let currentJobId = null;
+let pollTimer = null;
+
+// ---------------------------------------------------------------------------
+// Submit
+// ---------------------------------------------------------------------------
+async function submitJob() {
+  const url = document.getElementById('url-input').value.trim();
+  const fileInput = document.getElementById('file-input');
+  const slideMode = document.getElementById('slide-check').checked ? 'include' : 'ignore';
+  const engine = document.querySelector('input[name=engine]:checked')?.value || 'claude';
+
+  if (!url && !fileInput.files.length) {
+    alert('URLまたはファイルを指定してください');
+    return;
+  }
+
+  const fd = new FormData();
+  if (url) fd.append('url', url);
+  else fd.append('file', fileInput.files[0]);
+  fd.append('slide_mode', slideMode);
+  fd.append('engine', engine);
+
+  const res = await fetch('/submit', { method: 'POST', body: fd });
+  const data = await res.json();
+  if (data.error) { alert(data.error); return; }
+
+  currentJobId = data.job_id;
+  showProgress();
+  startPolling(currentJobId);
+}
+
+// ---------------------------------------------------------------------------
+// Progress polling
+// ---------------------------------------------------------------------------
+function showProgress() {
+  document.getElementById('progress-area').style.display = 'block';
+  document.getElementById('report-area').style.display = 'none';
+  setProgress(0, '開始中...');
+}
+
+function setProgress(pct, text) {
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-text').textContent = text;
+}
+
+function startPolling(jobId) {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(async () => {
+    const res = await fetch(`/jobs/${jobId}/status`);
+    const data = await res.json();
+    setProgress(data.progress || 0, data.text || '');
+
+    if (data.status === 'done') {
+      clearInterval(pollTimer);
+      await loadReport(jobId);
+      loadHistory();
+    } else if (data.status === 'error') {
+      clearInterval(pollTimer);
+      setProgress(0, '❌ ' + (data.text || 'エラーが発生しました'));
+      loadHistory();
+    }
+  }, 3000);
+}
+
+// ---------------------------------------------------------------------------
+// Report
+// ---------------------------------------------------------------------------
+async function loadReport(jobId) {
+  const res = await fetch(`/jobs/${jobId}/report`);
+  const data = await res.json();
+
+  document.getElementById('progress-area').style.display = 'none';
+  document.getElementById('report-area').style.display = 'block';
+
+  const issues = data.issues || [];
+  const missed = data.missed || [];
+
+  document.getElementById('report-summary').textContent =
+    `${issues.length} 件の指摘（見逃し追加: ${missed.length} 件）`;
+
+  // Issues
+  const list = document.getElementById('issues-list');
+  if (issues.length === 0) {
+    list.innerHTML = '<div class="empty">指摘なし</div>';
+  } else {
+    list.innerHTML = issues.map(iss => `
+      <div class="issue" id="issue-${iss.id}">
+        <div class="issue-meta">
+          <span class="tc">${esc(iss.timecode)}</span>
+          <span class="rule-badge">${esc(iss.rule)}</span>
+        </div>
+        <div class="issue-desc ${iss.feedback === 'false_positive' ? 'faded' : ''}" id="desc-${iss.id}">
+          ${esc(iss.description)}
+        </div>
+        <div class="feedback-btns">
+          <button class="btn-sm btn-ok" onclick="feedback(${iss.id},'correct')" title="正しい指摘">✓</button>
+          <button class="btn-sm btn-ng" onclick="feedback(${iss.id},'false_positive')" title="誤検出">✗</button>
+        </div>
+      </div>`).join('');
+  }
+
+  // Missed
+  const missedList = document.getElementById('missed-list');
+  missedList.innerHTML = missed.length
+    ? missed.map(m => `<div class="missed-issue"><strong>${esc(m.timecode)} ${esc(m.rule)}</strong>  ${esc(m.description)}</div>`).join('')
+    : '';
+}
+
+async function feedback(issueId, type) {
+  await fetch(`/issues/${issueId}/feedback`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ feedback: type }),
+  });
+  const desc = document.getElementById(`desc-${issueId}`);
+  if (desc) desc.className = `issue-desc ${type === 'false_positive' ? 'faded' : ''}`;
+}
+
+async function addMissed() {
+  if (!currentJobId) return;
+  const tc = document.getElementById('add-tc').value.trim();
+  const rule = document.getElementById('add-rule').value.trim();
+  const desc = document.getElementById('add-desc').value.trim();
+  if (!desc) { alert('指摘内容を入力してください'); return; }
+
+  await fetch(`/jobs/${currentJobId}/missed`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ timecode: tc, rule: rule, description: desc }),
+  });
+  document.getElementById('add-tc').value = '';
+  document.getElementById('add-rule').value = '';
+  document.getElementById('add-desc').value = '';
+  await loadReport(currentJobId);
+}
+
+// ---------------------------------------------------------------------------
+// History
+// ---------------------------------------------------------------------------
+async function loadHistory() {
+  const res = await fetch('/history');
+  const items = await res.json();
+  const el = document.getElementById('history-list');
+  if (!items.length) {
+    el.innerHTML = '<div class="empty">履歴はありません</div>';
+    return;
+  }
+  el.innerHTML = items.map(h => {
+    const cls = h.status === 'done' ? 's-done' : h.status === 'error' ? 's-error' : 's-processing';
+    const label = h.status === 'done' ? '完了' : h.status === 'error' ? 'エラー' : '処理中';
+    const viewBtn = h.status === 'done'
+      ? `<span class="hist-link" onclick="viewJob('${h.id}')">表示</span>`
+      : '';
+    return `<div class="hist-item">
+      <span class="hist-src">${esc(h.source)}</span>
+      <span style="display:flex;align-items:center;gap:6px">
+        <span class="hist-status ${cls}">${label}</span>
+        ${viewBtn}
+        <span style="color:#aaa;font-size:.78rem">${(h.created_at||'').slice(0,16)}</span>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+async function viewJob(jobId) {
+  currentJobId = jobId;
+  await loadReport(jobId);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---------------------------------------------------------------------------
+// Utils
+// ---------------------------------------------------------------------------
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Load history on page load
+loadHistory();
+</script>
+</body>
+</html>
