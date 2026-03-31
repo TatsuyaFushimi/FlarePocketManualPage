@@ -6,35 +6,134 @@
 <title>FlarePocket 使用方法</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f5f5f5; color: #222; }
-  header { background: #1a1a2e; color: #fff; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
-  header h1 { font-size: 1.2rem; font-weight: 600; letter-spacing: .04em; flex: 1; }
-  .header-dl { display: inline-flex; align-items: center; gap: 6px; background: #5b8dee; color: #fff; padding: 7px 16px; border-radius: 6px; font-size: .82rem; font-weight: 700; text-decoration: none; letter-spacing: .03em; white-space: nowrap; transition: opacity .15s; }
-  .header-dl:hover { opacity: .85; }
-  .hero { text-align: center; padding: 40px 16px 8px; }
-  .hero img { max-width: 480px; width: 100%; border-radius: 12px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F2EF; color: #1A0D05; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1A0800 0%, #331200 100%);
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #E8620A;
+  }
+  header h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: .04em; flex: 1; }
+  .header-dl {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; padding: 7px 16px; border-radius: 6px;
+    font-size: .82rem; font-weight: 700; text-decoration: none;
+    letter-spacing: .03em; white-space: nowrap; transition: opacity .15s;
+    box-shadow: 0 2px 8px rgba(232,98,10,.35);
+  }
+  .header-dl:hover { opacity: .88; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 40px 16px 0; }
+  .hero img { max-width: 420px; width: 100%; border-radius: 12px; }
+
+  /* Brain download bar */
+  .brain-bar {
+    background: linear-gradient(135deg, #1A0800 0%, #2D1000 100%);
+    padding: 16px;
+    text-align: center;
+    border-top: 1px solid #3D1A00;
+    border-bottom: 1px solid #3D1A00;
+  }
+  .brain-bar a {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; padding: 10px 22px; border-radius: 7px;
+    font-size: .95rem; font-weight: 700; text-decoration: none;
+    letter-spacing: .03em;
+    box-shadow: 0 2px 12px rgba(232,98,10,.4);
+    transition: opacity .15s;
+  }
+  .brain-bar a:hover { opacity: .88; }
+  .brain-bar .meta { display: inline-flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .version-badge {
+    background: rgba(232,98,10,.18); border: 1px solid rgba(232,98,10,.5);
+    color: #F5860A; font-size: .82rem; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px; letter-spacing: .05em;
+  }
+
+  /* Container & Cards */
   .container { max-width: 800px; margin: 0 auto; padding: 32px 16px; }
-  .card { background: #fff; border-radius: 10px; padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,.1); margin-bottom: 20px; }
-  .step-label { display: inline-block; background: #1a1a2e; color: #fff; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; margin-bottom: 12px; letter-spacing: .06em; }
-  h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
-  h3 { font-size: .95rem; font-weight: 600; margin: 16px 0 8px; color: #444; }
+  .card {
+    background: #fff; border-radius: 10px; padding: 28px;
+    box-shadow: 0 1px 6px rgba(100,40,0,.08);
+    margin-bottom: 20px;
+    border-left: 3px solid #E8620A;
+  }
+
+  /* Step label */
+  .step-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; font-size: .75rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 4px;
+    margin-bottom: 12px; letter-spacing: .06em;
+  }
+
+  h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: #1A0D05; }
+  h3 { font-size: .95rem; font-weight: 600; margin: 16px 0 8px; color: #663300; }
   p, li { font-size: .93rem; line-height: 1.7; color: #333; }
   ul { padding-left: 1.4em; }
   li { margin-bottom: 4px; }
 
-  .prompt-block { position: relative; background: #f0f4ff; border: 1px solid #d0dcff; border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
-  .prompt-block pre { font-family: "SFMono-Regular", Consolas, monospace; font-size: .88rem; line-height: 1.6; white-space: pre-wrap; color: #1a1a2e; padding-right: 56px; }
-  .copy-btn { position: absolute; top: 10px; right: 10px; background: #5b8dee; color: #fff; border: none; border-radius: 5px; padding: 5px 12px; font-size: .78rem; cursor: pointer; font-weight: 600; transition: opacity .15s; }
+  /* Prompt blocks */
+  .prompt-block {
+    position: relative; background: #FFF8F4;
+    border: 1px solid #F5C4A0; border-radius: 8px;
+    padding: 14px 16px; margin: 12px 0;
+  }
+  .prompt-block pre {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .88rem; line-height: 1.6; white-space: pre-wrap;
+    color: #2D1000; padding-right: 64px;
+  }
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; border: none; border-radius: 5px;
+    padding: 5px 12px; font-size: .78rem; cursor: pointer;
+    font-weight: 600; transition: opacity .15s;
+  }
   .copy-btn:hover { opacity: .85; }
-  .copy-btn.copied { background: #34c759; }
+  .copy-btn.copied { background: #2eab5f; }
 
-  .note { background: #fffbe6; border-left: 3px solid #f0a500; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: .87rem; margin: 10px 0; }
+  /* Note */
+  .note {
+    background: #FFF6EE; border-left: 3px solid #E8620A;
+    padding: 10px 14px; border-radius: 0 6px 6px 0;
+    font-size: .87rem; margin: 10px 0; color: #4D2000;
+  }
 
+  /* Table */
   table { width: 100%; border-collapse: collapse; font-size: .9rem; margin-top: 8px; }
-  th { background: #f0f4ff; text-align: left; padding: 8px 12px; font-weight: 600; color: #1a1a2e; }
-  td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; }
+  th { background: #2D1000; color: #fff; text-align: left; padding: 8px 12px; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid #F0EAE5; }
   tr:last-child td { border-bottom: none; }
-  code { background: #eef2ff; color: #5b8dee; padding: 2px 6px; border-radius: 4px; font-size: .85rem; font-family: "SFMono-Regular", Consolas, monospace; }
+  tr:nth-child(even) td { background: #FBF7F4; }
+
+  /* Code */
+  code {
+    background: #FFF0E8; color: #C44A00;
+    padding: 2px 6px; border-radius: 4px;
+    font-size: .85rem; font-family: "SFMono-Regular", Consolas, monospace;
+  }
+
+  /* CTA button */
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; padding: 9px 20px; border-radius: 6px;
+    font-size: .9rem; font-weight: 600; text-decoration: none;
+    box-shadow: 0 2px 8px rgba(232,98,10,.3);
+    transition: opacity .15s;
+  }
+  .btn-primary:hover { opacity: .88; }
 </style>
 </head>
 <body>
@@ -52,13 +151,13 @@
   <img src="assets/logo.png" alt="FlarePocket">
 </div>
 
-<div style="background:#1a1a2e;padding:14px 16px;text-align:center;">
-  <a href="brain_v0005.md" download style="display:inline-flex;align-items:center;gap:8px;background:#5b8dee;color:#fff;padding:10px 22px;border-radius:7px;font-size:.95rem;font-weight:700;text-decoration:none;letter-spacing:.03em;">
+<div class="brain-bar">
+  <a href="brain_v0005.md" download>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     最新の Brain ファイルをダウンロード
   </a>
-  <div style="display:inline-flex;align-items:center;gap:10px;margin-top:10px;">
-    <span style="background:#5b8dee22;border:1px solid #5b8dee66;color:#7fa8ff;font-size:.82rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.05em;">v0005</span>
+  <div class="meta">
+    <span class="version-badge">v0005</span>
     <span style="color:#ccc;font-size:.82rem;">添削ルール・チェック方針</span>
     <span style="color:#888;font-size:.78rem;">最終更新: 2026-03-31</span>
   </div>
@@ -146,7 +245,7 @@
     <span class="step-label">STEP 4</span>
     <h2>作業終了時（その日の使用が終わったら）</h2>
     <p style="margin-bottom:12px"><code>learnings/（自分の名前）_learnings.md</code> を以下の共有ドライブにアップロードしてください。</p>
-    <a href="https://drive.google.com/drive/u/0/folders/0AFY_i4LaLx2CUk9PVA" target="_blank" style="display:inline-block;background:#5b8dee;color:#fff;padding:8px 18px;border-radius:6px;font-size:.9rem;font-weight:600;text-decoration:none;">Googleドライブを開く</a>
+    <a href="https://drive.google.com/drive/u/0/folders/0AFY_i4LaLx2CUk9PVA" target="_blank" class="btn-primary">Googleドライブを開く</a>
     <div class="note">📤 このファイルが精度改善に使われます。添削するたびに内容が増えていくので、使い終わったタイミングで都度共有してください。</div>
   </div>
 
