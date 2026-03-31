@@ -243,7 +243,7 @@ output/backlog/{動画タイトル}/review_report.txt
 ## 10. ディレクトリ構造
 
 ```
-tensakuBot_tensakun_PJ/
+FlarePocket_PJ/
 ├── web/
 │   ├── main.py          # FastAPI エンドポイント
 │   ├── processor.py     # 添削ロジック（SYSTEM プロンプト・Gemini処理）
@@ -263,7 +263,7 @@ tensakuBot_tensakun_PJ/
 ├── .env                 # REVIEWER_NAME・GEMINI_API_KEY
 ├── CLAUDE.md            # ClaudeCode自動読み込み指示
 ├── requirements_web.txt
-└── tensakun_brain.md    # このファイル
+└── FlarePocket_brain.md    # このファイル
 ```
 
 ## 12. 過去の主な修正履歴（精度向上の経緯）
