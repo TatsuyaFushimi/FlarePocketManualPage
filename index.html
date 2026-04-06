@@ -154,34 +154,42 @@
 
 <div class="container">
 
+  <!-- Step 0 -->
+  <div class="card">
+    <span class="step-label">STEP 0</span>
+    <h2>プロジェクトの取得（初回のみ）</h2>
+
+    <h3>① GitHubにログインする</h3>
+    <p>ターミナルを開き、以下を実行してください：</p>
+    <div class="prompt-block">
+      <pre id="p0a">gh auth login</pre>
+      <button class="copy-btn" onclick="copy('p0a', this)">コピー</button>
+    </div>
+    <div class="note">💡 ブラウザが開いてコードの入力を求められます。ターミナルに表示されたコード（XXXX-XXXX形式）をブラウザに貼り付けてください。会社から招待されたGitHubアカウントでログインしてください。</div>
+
+    <h3>② リポジトリをローカルに落とす</h3>
+    <p>ターミナルで以下を実行してください：</p>
+    <div class="prompt-block">
+      <pre id="p0b">git clone https://github.com/EarthShipJP/FlarePocketPJ.git</pre>
+      <button class="copy-btn" onclick="copy('p0b', this)">コピー</button>
+    </div>
+    <div class="note">💡 実行すると現在のディレクトリに <code>FlarePocketPJ</code> フォルダが作成されます。</div>
+
+    <h3>③ Cursor でフォルダを開く</h3>
+    <p>Cursor を起動し、上部メニューから <strong>File → Open Folder</strong> を選択して、ダウンロードされた <code>FlarePocketPJ</code> フォルダを開いてください。</p>
+  </div>
+
   <!-- Step 1 -->
   <div class="card">
     <span class="step-label">STEP 1</span>
     <h2>初回セットアップ（初回のみ）</h2>
-
-    <h3>① GitHubにログインする</h3>
-    <p>ターミナルで以下を実行してください：</p>
+    <p>CursorでClaudeCodeに以下をコピペしてください：</p>
     <div class="prompt-block">
-      <pre id="p1a">gh auth login</pre>
-      <button class="copy-btn" onclick="copy('p1a', this)">コピー</button>
-    </div>
-    <div class="note">💡 ブラウザが開いてコードの入力を求められます。ターミナルに表示されたコード（XXXX-XXXX形式）をブラウザに貼り付けてください。会社から招待されたGitHubアカウントでログインしてください。</div>
-
-    <h3>② リポジトリをクローンする</h3>
-    <p>ターミナルで以下を実行してください：</p>
-    <div class="prompt-block">
-      <pre id="p1b">git clone https://github.com/EarthShipJP/FlarePocketPJ.git</pre>
-      <button class="copy-btn" onclick="copy('p1b', this)">コピー</button>
-    </div>
-
-    <h3>③ Cursorで開いてセットアップする</h3>
-    <p>クローンしたフォルダをCursorで開き、ClaudeCodeに以下をコピペしてください：</p>
-    <div class="prompt-block">
-      <pre id="p1c">このプロジェクトのセットアップをしてください。
+      <pre id="p1">このプロジェクトのセットアップをしてください。
 - ffmpegが入っていなければインストール
 - .envファイルを作成してREVIEWER_NAME=（自分の名前ローマ字）を設定
 - pip3 install -r requirements_web.txt を実行</pre>
-      <button class="copy-btn" onclick="copy('p1c', this)">コピー</button>
+      <button class="copy-btn" onclick="copy('p1', this)">コピー</button>
     </div>
     <div class="note">💡 途中で「許可しますか？」などのYES/NO確認が出た場合は、すべて <strong>YES</strong> で進めてください。</div>
   </div>
