@@ -169,13 +169,23 @@
   <div class="card">
     <span class="step-label">STEP 1</span>
     <h2>初回セットアップ（初回のみ）</h2>
-    <p>CursorでこのフォルダをPJとして開き、ClaudeCodeに以下をコピペしてください：</p>
+
+    <h3>① リポジトリをクローンする</h3>
+    <p>ターミナルで以下を実行してください：</p>
     <div class="prompt-block">
-      <pre id="p1">このプロジェクトのセットアップをしてください。
+      <pre id="p1a">git clone https://github.com/EarthShipJP/FlarePocketPJ.git</pre>
+      <button class="copy-btn" onclick="copy('p1a', this)">コピー</button>
+    </div>
+    <div class="note">💡 GitHubアカウントへのログインを求められた場合は、会社から招待されたアカウントでログインしてください。</div>
+
+    <h3>② Cursorで開いてセットアップする</h3>
+    <p>クローンしたフォルダをCursorで開き、ClaudeCodeに以下をコピペしてください：</p>
+    <div class="prompt-block">
+      <pre id="p1b">このプロジェクトのセットアップをしてください。
 - ffmpegが入っていなければインストール
 - .envファイルを作成してREVIEWER_NAME=（自分の名前ローマ字）を設定
 - pip3 install -r requirements_web.txt を実行</pre>
-      <button class="copy-btn" onclick="copy('p1', this)">コピー</button>
+      <button class="copy-btn" onclick="copy('p1b', this)">コピー</button>
     </div>
     <div class="note">💡 途中で「許可しますか？」などのYES/NO確認が出た場合は、すべて <strong>YES</strong> で進めてください。</div>
   </div>
@@ -220,7 +230,7 @@
       <button class="copy-btn" onclick="copy('p5', this)">コピー</button>
     </div>
 
-    <div class="note">📝 フィードバックは <code>learnings/（自分の名前）_learnings.md</code> に自動記録されます。</div>
+    <div class="note">📝 フィードバックはAIが自動で <code>FlarePocket_brain.md</code> に反映し、GitHubにpushします。次回以降の添削から全員が最新ルールで動きます。</div>
   </div>
 
   <!-- Rules -->
@@ -243,10 +253,13 @@
   <!-- Step 4 -->
   <div class="card">
     <span class="step-label">STEP 4</span>
-    <h2>作業終了時（その日の使用が終わったら）</h2>
-    <p style="margin-bottom:12px"><code>learnings/（自分の名前）_learnings.md</code> を以下の共有ドライブにアップロードしてください。</p>
-    <a href="https://drive.google.com/drive/u/0/folders/0AFY_i4LaLx2CUk9PVA" target="_blank" class="btn-primary">Googleドライブを開く</a>
-    <div class="note">📤 このファイルが精度改善に使われます。添削するたびに内容が増えていくので、使い終わったタイミングで都度共有してください。</div>
+    <h2>添削を始める前に（毎回）</h2>
+    <p style="margin-bottom:12px">最新のルールを取得するため、添削を依頼する前に必ず以下をコピペしてください：</p>
+    <div class="prompt-block">
+      <pre id="p6">添削の前にgit pullで最新のbrainを取得してください</pre>
+      <button class="copy-btn" onclick="copy('p6', this)">コピー</button>
+    </div>
+    <div class="note">📥 他のユーザーが更新したルールが自動で反映されます。</div>
   </div>
 
   <!-- Help -->
