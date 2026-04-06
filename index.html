@@ -162,13 +162,51 @@
     <h3>① ターミナルを開く</h3>
     <p>キーボードで <strong>⌘（command）+ スペース</strong> を押してSpotlightを開き、「ターミナル」と入力してEnterを押してください。黒っぽいウィンドウが開けばOKです。</p>
 
-    <h3>② 保存先フォルダに移動する</h3>
-    <p>プロジェクトを保存したい場所に移動します。デスクトップに保存する場合は以下をコピペしてEnterを押してください：</p>
-    <div class="prompt-block">
-      <pre id="p0a">cd ~/Desktop</pre>
-      <button class="copy-btn" onclick="copy('p0a', this)">コピー</button>
+    <h3>② 保存先フォルダを指定する</h3>
+    <p>プロジェクトを保存したいフォルダをターミナルに指定します。以下の手順で行ってください：</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin:14px 0;">
+
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FFF8F4;border:1px solid #F5C4A0;border-radius:8px;padding:14px;">
+        <div style="min-width:28px;height:28px;background:linear-gradient(135deg,#E8620A,#BF3800);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;">1</div>
+        <div>
+          <p style="font-weight:600;margin-bottom:4px;">ターミナルに以下を入力する（コピペでOK）</p>
+          <p style="font-size:.85rem;color:#888;margin-bottom:8px;">※ <code>cd</code> の後ろに半角スペースが1つ入っています</p>
+          <div class="prompt-block" style="margin:0;">
+            <pre id="p0a">cd </pre>
+            <button class="copy-btn" onclick="copy('p0a', this)">コピー</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FFF8F4;border:1px solid #F5C4A0;border-radius:8px;padding:14px;">
+        <div style="min-width:28px;height:28px;background:linear-gradient(135deg,#E8620A,#BF3800);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;">2</div>
+        <div>
+          <p style="font-weight:600;margin-bottom:4px;">Finderで保存したいフォルダを開く</p>
+          <p style="font-size:.88rem;color:#555;">デスクトップやDocumentsなど、わかりやすい場所を選んでください。</p>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FFF8F4;border:1px solid #F5C4A0;border-radius:8px;padding:14px;">
+        <div style="min-width:28px;height:28px;background:linear-gradient(135deg,#E8620A,#BF3800);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;">3</div>
+        <div>
+          <p style="font-weight:600;margin-bottom:4px;">そのフォルダをターミナルにドラッグ＆ドロップ</p>
+          <p style="font-size:.88rem;color:#555;">フォルダをFinderからターミナルのウィンドウにそのままドラッグすると、パスが自動で入力されます。</p>
+          <div style="margin-top:10px;background:#1A0D05;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:.85rem;color:#ccc;">
+            <span style="color:#888;">$ </span><span style="color:#fff;">cd </span><span style="color:#E8620A;">/Users/yourname/Desktop</span><span style="color:#888;"> ← 自動で入力される</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-start;gap:12px;background:#FFF8F4;border:1px solid #F5C4A0;border-radius:8px;padding:14px;">
+        <div style="min-width:28px;height:28px;background:linear-gradient(135deg,#E8620A,#BF3800);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;">4</div>
+        <div>
+          <p style="font-weight:600;margin-bottom:4px;">Enterを押す</p>
+          <p style="font-size:.88rem;color:#555;">これで保存先の指定が完了です。</p>
+        </div>
+      </div>
+
     </div>
-    <div class="note">💡 別の場所に保存したい場合は、Finderでそのフォルダを開き、ターミナルに <code>cd </code>（半角スペースあり）と入力してからフォルダをドラッグ＆ドロップするとパスが自動入力されます。</div>
 
     <h3>③ プロジェクトをダウンロードする</h3>
     <p>以下をコピペしてEnterを押してください：</p>
