@@ -215,15 +215,23 @@
 
     </div>
 
-    <h3>③ プロジェクトをダウンロードする</h3>
+    <h3>③ GitHubにログインする</h3>
     <p>以下をコピペしてEnterを押してください：</p>
+    <div class="prompt-block">
+      <pre id="p0b1">gh auth login</pre>
+      <button class="copy-btn" onclick="copy('p0b1', this)">コピー</button>
+    </div>
+    <div class="note">💡 質問が出たら <strong>GitHub.com → HTTPS → Yes → Login with a web browser</strong> の順に選択してEnterを押してください。ブラウザが開くので、会社から招待されたGitHubアカウントでログインしてください。</div>
+
+    <h3>④ プロジェクトをダウンロードする</h3>
+    <p>ログイン完了後、以下をコピペしてEnterを押してください：</p>
     <div class="prompt-block">
       <pre id="p0b">git clone https://github.com/EarthShipJP/FlarePocketPJ.git</pre>
       <button class="copy-btn" onclick="copy('p0b', this)">コピー</button>
     </div>
     <div class="note">💡 文字がたくさん流れて止まったら完了です。デスクトップに <code>FlarePocketPJ</code> フォルダが作成されています。</div>
 
-    <h3>④ Cursor でフォルダを開く</h3>
+    <h3>⑤ Cursor でフォルダを開く</h3>
     <p>Cursor を起動し、上部メニューから <strong>File → Open Folder</strong> を選択して、ダウンロードされた <code>FlarePocketPJ</code> フォルダを選んでください。</p>
     <div class="note">💡 Cursorがまだインストールされていない場合は <a href="https://cursor.sh" target="_blank" style="color:#E8620A;">cursor.sh</a> からダウンロードしてください。</div>
   </div>
