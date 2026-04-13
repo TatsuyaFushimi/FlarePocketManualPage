@@ -202,22 +202,34 @@
     <table>
       <tr><th>必要なもの</th><th>内容</th><th>どこで入手？</th></tr>
       <tr>
-        <td><strong>Frame.io アカウント</strong></td>
-        <td>動画がアップロードされているアカウント</td>
-        <td>frame.io（無料プランあり）</td>
-      </tr>
-      <tr>
         <td><strong>Asset ID</strong></td>
         <td>コメントを投稿したい動画の ID</td>
         <td>Frame.io の動画 URL から取得（STEP 2 で説明）</td>
       </tr>
       <tr>
         <td><strong>API Token</strong></td>
-        <td>FlarePocket が Frame.io を操作するための認証キー</td>
+        <td>FlarePocket が Frame.io を操作するための認証キー。<strong>動画にアクセス権のあるアカウント</strong>のトークンが必要</td>
         <td>Frame.io のアカウント設定から発行（STEP 1 で説明）</td>
       </tr>
     </table>
     <div class="note" style="margin-top:14px;">💡 API Token は一度発行して <code>.env</code> に保存しておけば、次回以降は入力不要になります。</div>
+
+    <h3>🙋 動画をアップロードした人（編集者）と添削する人が違う場合</h3>
+    <p style="margin-bottom:10px;">コメントを投稿するには、<strong>その動画へのアクセス権があるアカウントの API Token</strong> が必要です。以下のどちらかの方法で対応してください。</p>
+    <table>
+      <tr><th>方法</th><th>手順</th><th>おすすめ度</th></tr>
+      <tr>
+        <td><strong>方法 A：編集者のトークンを使う</strong></td>
+        <td>編集者に API Token を発行してもらい、添削担当者に共有する</td>
+        <td>⭐⭐⭐ 手軽で確実</td>
+      </tr>
+      <tr>
+        <td><strong>方法 B：添削者をプロジェクトに招待する</strong></td>
+        <td>編集者が Frame.io のプロジェクトに添削担当者を Collaborator として招待する。その後、添削担当者が自分の API Token を使う</td>
+        <td>⭐⭐ 管理しやすいが招待が必要</td>
+      </tr>
+    </table>
+    <div class="note-warn" style="margin-top:10px;">⚠️ アクセス権のないアカウントのトークンを使うと「HTTP 403」エラーになります。</div>
   </div>
 
   <!-- STEP 1 -->
@@ -404,6 +416,11 @@
   <!-- FAQ -->
   <div class="card">
     <h2>よくある質問</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">動画をアップロードしたのは編集者で、添削するのは別の人です。どうすればいいですか？</div>
+      <div class="faq-a">コメント投稿には、その動画へのアクセス権があるアカウントの API Token が必要です。<strong>方法 A：編集者に API Token を発行してもらい共有する</strong>（手軽でおすすめ）か、<strong>方法 B：編集者が添削担当者を Frame.io プロジェクトに Collaborator として招待し、添削担当者が自分の Token を使う</strong>、のどちらかで対応してください。</div>
+    </div>
 
     <div class="faq-item">
       <div class="faq-q">Asset ID がどこにあるかわかりません</div>
