@@ -8,14 +8,10 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F2EF; color: #1A0D05; }
 
-  /* Header */
   header {
     background: linear-gradient(135deg, #1A0800 0%, #331200 100%);
-    color: #fff;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    color: #fff; padding: 14px 24px;
+    display: flex; align-items: center; gap: 12px;
     border-bottom: 2px solid #E8620A;
   }
   header h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: .04em; flex: 1; }
@@ -24,21 +20,17 @@
     background: linear-gradient(135deg, #E8620A, #BF3800);
     color: #fff; padding: 7px 16px; border-radius: 6px;
     font-size: .82rem; font-weight: 700; text-decoration: none;
-    letter-spacing: .03em; white-space: nowrap; transition: opacity .15s;
+    white-space: nowrap; transition: opacity .15s;
     box-shadow: 0 2px 8px rgba(232,98,10,.35);
   }
   .header-back:hover { opacity: .88; }
 
-  /* Container & Cards */
   .container { max-width: 800px; margin: 0 auto; padding: 32px 16px; }
   .card {
     background: #fff; border-radius: 10px; padding: 28px;
     box-shadow: 0 1px 6px rgba(100,40,0,.08);
-    margin-bottom: 20px;
-    border-left: 3px solid #E8620A;
+    margin-bottom: 20px; border-left: 3px solid #E8620A;
   }
-
-  /* Step label */
   .step-label {
     display: inline-block;
     background: linear-gradient(135deg, #E8620A, #BF3800);
@@ -53,7 +45,6 @@
   ul { padding-left: 1.4em; }
   li { margin-bottom: 4px; }
 
-  /* Steps */
   .steps { counter-reset: step; }
   .step { display: flex; gap: 14px; margin-bottom: 24px; }
   .step:last-child { margin-bottom: 0; }
@@ -69,7 +60,7 @@
   .step-body { flex: 1; }
   .step-body h3 { margin-top: 0; }
 
-  /* Prompt blocks */
+  /* コピーできるプロンプトブロック */
   .prompt-block {
     position: relative; background: #FFF8F4;
     border: 1px solid #F5C4A0; border-radius: 8px;
@@ -77,12 +68,20 @@
   }
   .prompt-block pre {
     font-family: "SFMono-Regular", Consolas, monospace;
-    font-size: .88rem; line-height: 1.6; white-space: pre-wrap;
-    color: #2D1000; padding-right: 64px;
+    font-size: .9rem; line-height: 1.65; white-space: pre-wrap;
+    color: #2D1000; padding-right: 72px;
   }
-  .prompt-block .hl { color: #E8620A; font-weight: 700; }
+  .prompt-block .var { color: #E8620A; font-weight: 700; }
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; border: none; border-radius: 5px;
+    padding: 5px 12px; font-size: .78rem; cursor: pointer;
+    font-weight: 600; transition: opacity .15s;
+  }
+  .copy-btn:hover { opacity: .85; }
+  .copy-btn.copied { background: #2eab5f; }
 
-  /* Note */
   .note {
     background: #FFF6EE; border-left: 3px solid #E8620A;
     padding: 10px 14px; border-radius: 0 6px 6px 0;
@@ -98,21 +97,13 @@
     padding: 10px 14px; border-radius: 0 6px 6px 0;
     font-size: .87rem; margin: 10px 0; color: #5A3E00; line-height: 1.65;
   }
-  .note-highlight {
-    background: #FFF0F0; border: 2px solid #e53e3e;
-    border-radius: 8px; padding: 12px 16px;
-    font-size: .93rem; font-weight: 700; color: #c0392b;
-    margin: 10px 0; display: flex; align-items: center; gap: 8px;
-  }
 
-  /* Code */
   code {
     background: #FFF0E8; color: #C44A00;
     padding: 2px 6px; border-radius: 4px;
     font-size: .85rem; font-family: "SFMono-Regular", Consolas, monospace;
   }
 
-  /* URL box */
   .url-box {
     background: #FFF8F4; border: 1px solid #F5C4A0; border-radius: 7px;
     padding: 11px 14px; font-size: .87rem; color: #2D1000;
@@ -120,51 +111,22 @@
     font-family: "SFMono-Regular", Consolas, monospace;
   }
 
-  /* UI Mock */
-  .ui-mock {
-    border: 1px solid #F5C4A0; border-radius: 8px;
-    padding: 14px 16px; background: #FFFAF6; margin: 10px 0;
-  }
-  .ui-mock-label { font-size: .72rem; color: #C08060; font-weight: 700; letter-spacing: .06em; margin-bottom: 10px; text-transform: uppercase; }
-  .mock-input {
-    background: #fff; border: 1px solid #ddd; border-radius: 6px;
-    padding: 9px 13px; font-size: .87rem; color: #aaa; width: 100%; margin-bottom: 6px;
-  }
-  .mock-btn {
-    display: inline-block; background: linear-gradient(135deg, #1A0800, #331200);
-    color: #fff; padding: 8px 18px; border-radius: 6px; font-size: .85rem; font-weight: 600;
-  }
-
-  /* Table */
   table { width: 100%; border-collapse: collapse; font-size: .9rem; margin-top: 8px; }
   th { background: #2D1000; color: #fff; text-align: left; padding: 8px 12px; font-weight: 600; }
   td { padding: 8px 12px; border-bottom: 1px solid #F0EAE5; line-height: 1.6; }
   tr:last-child td { border-bottom: none; }
   tr:nth-child(even) td { background: #FBF7F4; }
 
-  /* Flow */
   .flow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 12px 0; row-gap: 8px; }
   .flow-item { background: #FFF0E8; color: #C44A00; border: 1px solid #F5C4A0; padding: 6px 13px; border-radius: 6px; font-size: .83rem; font-weight: 600; white-space: nowrap; }
   .flow-item.done { background: #F0FAF4; color: #27AE60; border-color: #A8DFC0; }
   .flow-arrow { color: #E8620A; font-size: 1rem; }
 
-  /* FAQ */
   .faq-item { border-bottom: 1px solid #F0EAE5; padding: 14px 0; }
   .faq-item:last-child { border-bottom: none; }
   .faq-q { font-size: .92rem; font-weight: 600; color: #1A0D05; margin-bottom: 6px; display: flex; gap: 8px; }
   .faq-q::before { content: "Q."; color: #E8620A; font-weight: 700; flex-shrink: 0; }
   .faq-a { font-size: .88rem; color: #555; line-height: 1.7; padding-left: 22px; }
-
-  /* CTA button */
-  .btn-primary {
-    display: inline-block;
-    background: linear-gradient(135deg, #E8620A, #BF3800);
-    color: #fff; padding: 9px 20px; border-radius: 6px;
-    font-size: .9rem; font-weight: 600; text-decoration: none;
-    box-shadow: 0 2px 8px rgba(232,98,10,.3);
-    transition: opacity .15s;
-  }
-  .btn-primary:hover { opacity: .88; }
 </style>
 </head>
 <body>
@@ -183,96 +145,63 @@
   <!-- 概要 -->
   <div class="card">
     <h2>Frame.io 自動コメント投稿とは？</h2>
-    <p>FlarePocket で検出した添削指摘を、Frame.io の動画に<strong>タイムスタンプ付きのコメント</strong>として自動投稿する機能です。ボタン一つで全指摘を一括投稿できます。</p>
+    <p>FlarePocket の添削が完了した後、Claude に一言伝えるだけで添削指摘を Frame.io の動画に<strong>タイムスタンプ付きコメント</strong>として自動投稿できます。</p>
 
-    <h3>2つの投稿モード</h3>
+    <h3>全体の流れ</h3>
+    <div class="flow">
+      <div class="flow-item">① 編集者から共有URLをもらう</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">② Claude に添削を依頼</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">③ 共有URLを添えて投稿を依頼</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item done">✓ Frame.io にコメントが届く</div>
+    </div>
+
+    <h3>必要なもの</h3>
     <table>
-      <tr><th>モード</th><th>必要なもの</th><th>こんな人向け</th></tr>
+      <tr><th>必要なもの</th><th>説明</th></tr>
       <tr>
-        <td><strong>⭐ URL共有モード（おすすめ）</strong></td>
-        <td>編集者からもらった <strong>共有URL</strong> だけ</td>
-        <td>アカウント・トークン不要。URL共有で動画を受け取っている人</td>
-      </tr>
-      <tr>
-        <td>API Token モード</td>
-        <td>Asset ID ＋ API Token</td>
-        <td>自分のアカウントで動画をアップロードしている人</td>
+        <td><strong>Frame.io 共有URL</strong></td>
+        <td>編集者から受け取る共有リンク。アカウントやトークンは不要</td>
       </tr>
     </table>
-    <div class="note-success" style="margin-top:12px;">✅ 編集者と添削者が別の人でも、<strong>URL共有モードなら共有URLを貼るだけ</strong>で投稿できます。アカウントもトークンも不要です。</div>
+    <div class="note-success" style="margin-top:12px;">✅ アカウントなし・トークンなし。共有URLだけでOKです。</div>
   </div>
 
-  <!-- STEP 1 URL共有モード -->
+  <!-- STEP 1 -->
   <div class="card">
-    <span class="step-label">STEP 1（URL共有モード）</span>
-    <h2>⭐ 共有URLだけで投稿する（おすすめ）</h2>
-    <p style="margin-bottom:16px;">編集者から受け取った <strong>Frame.io の共有URL</strong> を貼るだけで投稿できます。アカウントもトークンも不要です。</p>
+    <span class="step-label">STEP 1</span>
+    <h2>編集者から共有URLをもらう</h2>
     <div class="steps">
 
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>編集者から共有URLをもらう</h3>
-          <p>編集者が Frame.io で発行した共有リンクを受け取ります。以下のような形式の URL です。</p>
+          <h3>編集者に共有リンクを発行してもらう</h3>
+          <p>編集者に「Frame.io の共有リンクを送ってください」と伝えてください。届くURLは以下のような形式です。</p>
           <div class="url-box">https://app.frame.io/reviews/<strong style="color:#E8620A;">XXXXXXXXXX</strong></div>
           <div class="url-box">https://app.frame.io/v/<strong style="color:#E8620A;">XXXXXXXXXX</strong></div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>FlarePocket で添削を完了させる</h3>
-          <p>Web アプリ（<code>http://localhost:8000</code>）で動画を添削します。完了するとレポートが表示されます。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>「URL共有（トークン不要）」タブで共有URLを貼る</h3>
-          <p>レポート下部の「Frame.io エクスポート」セクションを開き、<strong>「URL共有（トークン不要）」タブ</strong>（デフォルト）を選択して共有URLを貼り付けます。</p>
-          <div class="ui-mock">
-            <div class="ui-mock-label">画面イメージ</div>
-            <div style="display:flex;gap:0;margin-bottom:12px;border:1px solid #ddd;border-radius:6px;overflow:hidden;width:fit-content;">
-              <div style="padding:5px 12px;background:#663300;color:#fff;font-size:.8rem;font-weight:700;">URL共有（トークン不要）</div>
-              <div style="padding:5px 12px;background:#f5f5f5;color:#888;font-size:.8rem;">API Token</div>
-            </div>
-            <div class="mock-input">Frame.io 共有URL（https://app.frame.io/reviews/XXXXX）</div>
-            <div class="mock-btn" style="margin-top:4px;">コメントを投稿</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>「コメントを投稿」ボタンを押す</h3>
-          <p>ボタンをクリックすると、全指摘が一括で Frame.io に投稿されます。</p>
-          <div class="note-success">✅ <strong>「✓ N 件投稿成功」</strong> と表示されれば完了です。</div>
-          <div class="note-highlight">🚫 ボタンの二度押しに注意！重複してコメントが投稿されます。</div>
+          <div class="note">💡 このURLをコピーしておいてください。STEP 3 で使います。</div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- STEP 2 API Tokenモード -->
+  <!-- STEP 2 -->
   <div class="card">
-    <span class="step-label">STEP 2（API Token モード）</span>
-    <h2>API Token で投稿する（自分のアカウントで動画をアップした人向け）</h2>
-    <p style="margin-bottom:16px;">自分のアカウントで動画をアップロードしている場合は、Asset ID と API Token を使って投稿できます。</p>
+    <span class="step-label">STEP 2</span>
+    <h2>Claude に添削を依頼する</h2>
     <div class="steps">
 
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>API Token を発行する（初回のみ）</h3>
-          <p>Frame.io にログイン → 左下のアカウントアイコン → <strong>「Account Settings」</strong> → 左メニュー <strong>「Developer」</strong> → <strong>「New Token」</strong> で発行します。</p>
-          <div class="note-warn">⚠️ トークンは作成直後にしか表示されません。必ずコピーして保管してください。</div>
-          <p style="margin-top:10px;">発行したトークンを <code>.env</code> に追加しておくと次回から入力不要になります：</p>
+          <h3>YouTube URL の場合</h3>
           <div class="prompt-block">
-            <pre>FRAMEIO_TOKEN=<span class="hl">ここに発行したトークンを貼り付け</span></pre>
+            <pre id="p1"><span class="var">（YouTubeのURL）</span>を添削してください</pre>
+            <button class="copy-btn" onclick="copy('p1', this)">コピー</button>
           </div>
         </div>
       </div>
@@ -280,86 +209,65 @@
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>Asset ID を確認する</h3>
-          <p>Frame.io で動画を開き、ブラウザの URL から Asset ID をコピーします。</p>
-          <div class="url-box">https://app.frame.io/player/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
-          <div class="url-box">https://app.frame.io/projects/xxxx/assets/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
-          <p style="margin-top:8px;"><span style="background:#FFF3CD;padding:2px 6px;border-radius:4px;font-size:.85rem;color:#856404;">オレンジ色の部分</span> が Asset ID です。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>「API Token」タブで入力して投稿する</h3>
-          <p>レポート下部の Frame.io エクスポートセクションで <strong>「API Token」タブ</strong> を選び、Asset ID と Token を入力して投稿します。</p>
-          <div class="ui-mock">
-            <div class="ui-mock-label">画面イメージ</div>
-            <div style="display:flex;gap:0;margin-bottom:12px;border:1px solid #ddd;border-radius:6px;overflow:hidden;width:fit-content;">
-              <div style="padding:5px 12px;background:#f5f5f5;color:#888;font-size:.8rem;">URL共有（トークン不要）</div>
-              <div style="padding:5px 12px;background:#663300;color:#fff;font-size:.8rem;font-weight:700;">API Token</div>
-            </div>
-            <div class="mock-input">Asset ID（Frame.io の動画アセット ID）</div>
-            <div class="mock-input">API Token（.env に設定済みなら空欄可）</div>
-            <div class="mock-btn" style="margin-top:4px;">コメントを投稿</div>
+          <h3>動画ファイルの場合</h3>
+          <p style="margin-bottom:8px;">MP4ファイルを <code>input/</code> フォルダに置いてからコピペ：</p>
+          <div class="prompt-block">
+            <pre id="p2">input/<span class="var">（ファイル名）</span>.mp4 を添削してください</pre>
+            <button class="copy-btn" onclick="copy('p2', this)">コピー</button>
           </div>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="card">
-    <span class="step-label">STEP 4</span>
-    <h2>Frame.io でコメントを確認する</h2>
-    <div class="steps">
-
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>Frame.io で動画を開く</h3>
-          <p>コメントを投稿した動画を Frame.io で開きます。タイムライン下部にコメントが並んでいます。各コメントのタイムコードをクリックするとその位置に動画がジャンプします。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>コメントの形式を確認する</h3>
-          <p>各コメントはルールコード付きで以下の形式で投稿されます。</p>
-          <div class="prompt-block"><pre>[HY1] テロップ「体に良いわけがない」→「体にいいわけがない」に修正</pre></div>
-          <div class="prompt-block"><pre>[HY2] テロップ「すごいよくなってきているといいますか」→「すごくよくなってきているといいますか」に修正</pre></div>
-          <div class="prompt-block"><pre>[CA] エンドカード「伊原 靖（イハラ ヤスシ」→閉じ括弧「）」が欠落。修正してください</pre></div>
+          <h3>添削完了まで待つ</h3>
+          <p>Claude がフレームを確認しながら添削します。完了するとレポートが表示されます。</p>
+          <div class="note">⏱ 目安：30分の動画で約15〜20分</div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- STEP 3 確認 -->
+  <!-- STEP 3 -->
   <div class="card">
     <span class="step-label">STEP 3</span>
-    <h2>Frame.io でコメントを確認する</h2>
+    <h2>Claude に Frame.io への投稿を依頼する</h2>
     <div class="steps">
+
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>Frame.io で動画を開く</h3>
-          <p>コメントを投稿した動画を Frame.io で開きます。タイムライン下部にコメントが並んでいます。各コメントのタイムコードをクリックするとその位置に動画がジャンプします。</p>
+          <h3>添削完了後、共有URLを添えて一言伝える</h3>
+          <p>以下をコピペして、<span style="color:#E8620A;font-weight:600;">共有URLの部分</span>を実際のURLに書き換えてください。</p>
+          <div class="prompt-block">
+            <pre id="p3">Frame.ioに投稿して。共有URL: <span class="var">https://app.frame.io/reviews/XXXXX</span></pre>
+            <button class="copy-btn" onclick="copy('p3', this)">コピー</button>
+          </div>
+          <div class="note-success" style="margin-top:10px;">✅ これだけでOKです。Claude が自動で全指摘をタイムスタンプ付きで投稿します。</div>
         </div>
       </div>
+
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>コメントの形式を確認する</h3>
-          <p>各コメントはルールコード付きで以下の形式で投稿されます。</p>
-          <div class="prompt-block"><pre>[HY1] テロップ「体に良いわけがない」→「体にいいわけがない」に修正</pre></div>
-          <div class="prompt-block"><pre>[HY2] テロップ「すごいよくなってきているといいますか」→「すごくよくなってきているといいますか」に修正</pre></div>
-          <div class="prompt-block"><pre>[CA] エンドカード「伊原 靖（イハラ ヤスシ」→閉じ括弧「）」が欠落。修正してください</pre></div>
+          <h3>完了メッセージを確認する</h3>
+          <p>Claude から「✓ N 件投稿成功」と返ってきたら完了です。Frame.io で動画を開くとタイムラインにコメントが並んでいます。</p>
+          <div class="note-warn">⚠️ 同じジョブに対して同じ依頼を繰り返すとコメントが重複します。</div>
         </div>
       </div>
+
     </div>
+  </div>
+
+  <!-- コメント例 -->
+  <div class="card">
+    <h2>Frame.io に届くコメントの形式</h2>
+    <p style="margin-bottom:12px;">各コメントはルールコード付きで投稿されます。タイムコードをクリックすると動画がその位置にジャンプします。</p>
+    <div class="prompt-block"><pre>[HY1] テロップ「体に良いわけがない」→「体にいいわけがない」に修正</pre></div>
+    <div class="prompt-block"><pre>[HY2] テロップ「すごいよくなってきているといいますか」→「すごくよくなってきているといいますか」に修正</pre></div>
+    <div class="prompt-block"><pre>[CA] エンドカード「伊原 靖（イハラ ヤスシ」→閉じ括弧「）」が欠落。修正してください</pre></div>
   </div>
 
   <!-- FAQ -->
@@ -367,33 +275,28 @@
     <h2>よくある質問</h2>
 
     <div class="faq-item">
-      <div class="faq-q">動画をアップロードしたのは編集者で、添削するのは別の人です。どうすればいいですか？</div>
-      <div class="faq-a"><strong>URL共有モード</strong>を使えば解決します。編集者から共有URLをもらって「URL共有（トークン不要）」タブに貼るだけでOKです。アカウントもトークンも必要ありません。</div>
+      <div class="faq-q">共有URLはどんな形式ですか？</div>
+      <div class="faq-a"><code>https://app.frame.io/reviews/XXXXX</code> または <code>https://app.frame.io/v/XXXXX</code> の形式です。編集者に「Frame.io の共有リンクを送ってください」と伝えれば発行してもらえます。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">共有URLがどんな形式かわかりません</div>
-      <div class="faq-a">Frame.io の共有URLは <code>https://app.frame.io/reviews/XXXXX</code> または <code>https://app.frame.io/v/XXXXX</code> の形式です。編集者に「Frame.io の共有リンクを送ってください」と伝えれば発行してもらえます。</div>
+      <div class="faq-q">アカウントやトークンは必要ですか？</div>
+      <div class="faq-a">不要です。共有URLだけで投稿できます。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「URLの形式を認識できませんでした」というエラーが出ます</div>
+      <div class="faq-q">「URLの形式を認識できませんでした」と Claude に言われました</div>
       <div class="faq-a">貼り付けたURLが Frame.io の共有リンク形式（<code>/reviews/</code> または <code>/v/</code> を含むURL）でない可能性があります。編集者に共有リンクを再発行してもらってください。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「レビューリンクの情報を取得できませんでした」というエラーが出ます</div>
+      <div class="faq-q">「レビューリンクの情報を取得できませんでした」と言われました</div>
       <div class="faq-a">共有リンクの有効期限が切れているか、URLが正しくコピーできていない可能性があります。編集者に共有リンクを再発行してもらってください。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「HTTP 401 / 403」エラーが出ます（API Token モード）</div>
-      <div class="faq-a">401 は Token が無効または期限切れ、403 は Asset ID が間違っているかアクセス権がありません。URL共有モードへの切り替えも検討してください。</div>
-    </div>
-
-    <div class="faq-item">
       <div class="faq-q">コメントが重複して投稿されてしまいました</div>
-      <div class="faq-a">「コメントを投稿」ボタンを複数回押すと重複します。Frame.io 側で重複コメントを手動削除してください。</div>
+      <div class="faq-a">同じ添削結果に対して複数回投稿を依頼すると重複します。Frame.io 側で重複コメントを手動削除してください。</div>
     </div>
 
     <div class="faq-item">
@@ -404,5 +307,16 @@
   </div>
 
 </div>
+
+<script>
+function copy(id, btn) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'コピー済み';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
 </body>
 </html>
