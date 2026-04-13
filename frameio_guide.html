@@ -183,191 +183,64 @@
   <!-- 概要 -->
   <div class="card">
     <h2>Frame.io 自動コメント投稿とは？</h2>
-    <p>FlarePocket で検出した添削指摘を、Frame.io の動画に<strong>タイムスタンプ付きのコメント</strong>として自動投稿する機能です。一度設定すれば、ボタン一つで全指摘を一括投稿できます。</p>
+    <p>FlarePocket で検出した添削指摘を、Frame.io の動画に<strong>タイムスタンプ付きのコメント</strong>として自動投稿する機能です。ボタン一つで全指摘を一括投稿できます。</p>
 
-    <h3>全体の流れ</h3>
-    <div class="flow">
-      <div class="flow-item">① API Token を発行</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-item">② Asset ID を確認</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-item">③ FlarePocket で添削</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-item">④ エクスポートボタンを押す</div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-item done">✓ Frame.io にコメントが届く</div>
-    </div>
-
-    <h3>必要なもの</h3>
+    <h3>2つの投稿モード</h3>
     <table>
-      <tr><th>必要なもの</th><th>内容</th><th>どこで入手？</th></tr>
+      <tr><th>モード</th><th>必要なもの</th><th>こんな人向け</th></tr>
       <tr>
-        <td><strong>Asset ID</strong></td>
-        <td>コメントを投稿したい動画の ID</td>
-        <td>Frame.io の動画 URL から取得（STEP 2 で説明）</td>
+        <td><strong>⭐ URL共有モード（おすすめ）</strong></td>
+        <td>編集者からもらった <strong>共有URL</strong> だけ</td>
+        <td>アカウント・トークン不要。URL共有で動画を受け取っている人</td>
       </tr>
       <tr>
-        <td><strong>API Token</strong></td>
-        <td>FlarePocket が Frame.io を操作するための認証キー。<strong>動画にアクセス権のあるアカウント</strong>のトークンが必要</td>
-        <td>Frame.io のアカウント設定から発行（STEP 1 で説明）</td>
+        <td>API Token モード</td>
+        <td>Asset ID ＋ API Token</td>
+        <td>自分のアカウントで動画をアップロードしている人</td>
       </tr>
     </table>
-    <div class="note" style="margin-top:14px;">💡 API Token は一度発行して <code>.env</code> に保存しておけば、次回以降は入力不要になります。</div>
-
-    <h3>🙋 動画をアップロードした人（編集者）と添削する人が違う場合</h3>
-    <p style="margin-bottom:10px;">コメントを投稿するには、<strong>その動画へのアクセス権があるアカウントの API Token</strong> が必要です。以下のどちらかの方法で対応してください。</p>
-    <table>
-      <tr><th>方法</th><th>手順</th><th>おすすめ度</th></tr>
-      <tr>
-        <td><strong>方法 A：編集者のトークンを使う</strong></td>
-        <td>編集者に API Token を発行してもらい、添削担当者に共有する</td>
-        <td>⭐⭐⭐ 手軽で確実</td>
-      </tr>
-      <tr>
-        <td><strong>方法 B：添削者をプロジェクトに招待する</strong></td>
-        <td>編集者が Frame.io のプロジェクトに添削担当者を Collaborator として招待する。その後、添削担当者が自分の API Token を使う</td>
-        <td>⭐⭐ 管理しやすいが招待が必要</td>
-      </tr>
-    </table>
-    <div class="note-warn" style="margin-top:10px;">⚠️ アクセス権のないアカウントのトークンを使うと「HTTP 403」エラーになります。</div>
+    <div class="note-success" style="margin-top:12px;">✅ 編集者と添削者が別の人でも、<strong>URL共有モードなら共有URLを貼るだけ</strong>で投稿できます。アカウントもトークンも不要です。</div>
   </div>
 
-  <!-- STEP 1 -->
+  <!-- STEP 1 URL共有モード -->
   <div class="card">
-    <span class="step-label">STEP 1</span>
-    <h2>API Token を発行する（初回のみ）</h2>
+    <span class="step-label">STEP 1（URL共有モード）</span>
+    <h2>⭐ 共有URLだけで投稿する（おすすめ）</h2>
+    <p style="margin-bottom:16px;">編集者から受け取った <strong>Frame.io の共有URL</strong> を貼るだけで投稿できます。アカウントもトークンも不要です。</p>
     <div class="steps">
 
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>Frame.io にログインする</h3>
-          <p>ブラウザで <strong>app.frame.io</strong> を開き、アカウントにログインしてください。</p>
+          <h3>編集者から共有URLをもらう</h3>
+          <p>編集者が Frame.io で発行した共有リンクを受け取ります。以下のような形式の URL です。</p>
+          <div class="url-box">https://app.frame.io/reviews/<strong style="color:#E8620A;">XXXXXXXXXX</strong></div>
+          <div class="url-box">https://app.frame.io/v/<strong style="color:#E8620A;">XXXXXXXXXX</strong></div>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>アカウント設定を開く</h3>
-          <p>画面左下のアカウントアイコン（プロフィール画像）をクリックし、<strong>「Account Settings」</strong> を選択します。</p>
+          <h3>FlarePocket で添削を完了させる</h3>
+          <p>Web アプリ（<code>http://localhost:8000</code>）で動画を添削します。完了するとレポートが表示されます。</p>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num"></div>
         <div class="step-body">
-          <h3>「Developer」タブを開く</h3>
-          <p>左メニューの <strong>「Developer」</strong> をクリックします。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>新しいトークンを発行する</h3>
-          <p><strong>「New Token」</strong> をクリックし、わかりやすい名前（例：<code>FlarePocket</code>）を入力して作成します。</p>
-          <div class="note-warn">⚠️ トークンは作成直後にしか表示されません。必ずコピーして保管してください。</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>（推奨）.env に保存する</h3>
-          <p>プロジェクトフォルダの <code>.env</code> をテキストエディタで開き、以下を追加します。次回から入力欄を空欄にできます。</p>
-          <div class="prompt-block">
-            <pre>FRAMEIO_TOKEN=<span class="hl">ここに発行したトークンを貼り付け</span></pre>
-          </div>
-          <div class="note-success">✅ <code>.env</code> は Git にコミットされないため、安全に保管できます。</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STEP 2 -->
-  <div class="card">
-    <span class="step-label">STEP 2</span>
-    <h2>Asset ID を確認する</h2>
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>コメントを投稿したい動画を開く</h3>
-          <p>Frame.io でコメントを入れたい動画を開きます。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>ブラウザの URL を確認する</h3>
-          <p>アドレスバーを見ると、以下のような形式の URL になっています。</p>
-          <div class="url-box">https://app.frame.io/player/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
-          <p style="margin-top:4px;">または</p>
-          <div class="url-box">https://app.frame.io/projects/xxxx/assets/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
-          <p style="margin-top:10px;"><span style="background:#FFF3CD;padding:2px 6px;border-radius:4px;font-size:.85rem;color:#856404;">オレンジ色の部分</span> が Asset ID です。ハイフン区切りの長い文字列（UUID 形式）です。</p>
-          <div class="note">💡 動画を右クリック →「Copy Asset ID」でコピーできる場合もあります（Frame.io のバージョンにより異なります）。</div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>Asset ID をコピーしておく</h3>
-          <p><code>/player/</code> または <code>/assets/</code> の後ろの文字列をコピーします。STEP 3 で使います。</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STEP 3 -->
-  <div class="card">
-    <span class="step-label">STEP 3</span>
-    <h2>FlarePocket でエクスポートする</h2>
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>添削を完了させる</h3>
-          <p>FlarePocket の Web アプリ（<code>http://localhost:8000</code>）で動画 URL を入力し、添削が完了するまで待ちます。</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>「Frame.io エクスポート」セクションを見つける</h3>
-          <p>添削レポートの下部に <strong>「Frame.io エクスポート」</strong> セクションが表示されます。</p>
+          <h3>「URL共有（トークン不要）」タブで共有URLを貼る</h3>
+          <p>レポート下部の「Frame.io エクスポート」セクションを開き、<strong>「URL共有（トークン不要）」タブ</strong>（デフォルト）を選択して共有URLを貼り付けます。</p>
           <div class="ui-mock">
             <div class="ui-mock-label">画面イメージ</div>
-            <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;color:#888;text-transform:uppercase;margin-bottom:10px;">FRAME.IO エクスポート</div>
-            <div class="mock-input">Asset ID（Frame.io の動画アセット ID）</div>
-            <div class="mock-input">API Token（.env に FRAMEIO_TOKEN 設定済みなら空欄可）</div>
-            <div class="mock-btn">コメントを投稿</div>
+            <div style="display:flex;gap:0;margin-bottom:12px;border:1px solid #ddd;border-radius:6px;overflow:hidden;width:fit-content;">
+              <div style="padding:5px 12px;background:#663300;color:#fff;font-size:.8rem;font-weight:700;">URL共有（トークン不要）</div>
+              <div style="padding:5px 12px;background:#f5f5f5;color:#888;font-size:.8rem;">API Token</div>
+            </div>
+            <div class="mock-input">Frame.io 共有URL（https://app.frame.io/reviews/XXXXX）</div>
+            <div class="mock-btn" style="margin-top:4px;">コメントを投稿</div>
           </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num"></div>
-        <div class="step-body">
-          <h3>Asset ID と API Token を入力する</h3>
-          <table>
-            <tr><th>入力欄</th><th>入力内容</th></tr>
-            <tr>
-              <td>Asset ID</td>
-              <td>STEP 2 でコピーした UUID</td>
-            </tr>
-            <tr>
-              <td>API Token</td>
-              <td>STEP 1 で発行したトークン。<code>.env</code> に設定済みなら<strong>空欄でOK</strong></td>
-            </tr>
-          </table>
         </div>
       </div>
 
@@ -377,8 +250,59 @@
           <h3>「コメントを投稿」ボタンを押す</h3>
           <p>ボタンをクリックすると、全指摘が一括で Frame.io に投稿されます。</p>
           <div class="note-success">✅ <strong>「✓ N 件投稿成功」</strong> と表示されれば完了です。</div>
-          <div class="note">💡 見逃し追加した指摘も一緒に投稿されます。</div>
           <div class="note-highlight">🚫 ボタンの二度押しに注意！重複してコメントが投稿されます。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 2 API Tokenモード -->
+  <div class="card">
+    <span class="step-label">STEP 2（API Token モード）</span>
+    <h2>API Token で投稿する（自分のアカウントで動画をアップした人向け）</h2>
+    <p style="margin-bottom:16px;">自分のアカウントで動画をアップロードしている場合は、Asset ID と API Token を使って投稿できます。</p>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>API Token を発行する（初回のみ）</h3>
+          <p>Frame.io にログイン → 左下のアカウントアイコン → <strong>「Account Settings」</strong> → 左メニュー <strong>「Developer」</strong> → <strong>「New Token」</strong> で発行します。</p>
+          <div class="note-warn">⚠️ トークンは作成直後にしか表示されません。必ずコピーして保管してください。</div>
+          <p style="margin-top:10px;">発行したトークンを <code>.env</code> に追加しておくと次回から入力不要になります：</p>
+          <div class="prompt-block">
+            <pre>FRAMEIO_TOKEN=<span class="hl">ここに発行したトークンを貼り付け</span></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Asset ID を確認する</h3>
+          <p>Frame.io で動画を開き、ブラウザの URL から Asset ID をコピーします。</p>
+          <div class="url-box">https://app.frame.io/player/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
+          <div class="url-box">https://app.frame.io/projects/xxxx/assets/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong></div>
+          <p style="margin-top:8px;"><span style="background:#FFF3CD;padding:2px 6px;border-radius:4px;font-size:.85rem;color:#856404;">オレンジ色の部分</span> が Asset ID です。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>「API Token」タブで入力して投稿する</h3>
+          <p>レポート下部の Frame.io エクスポートセクションで <strong>「API Token」タブ</strong> を選び、Asset ID と Token を入力して投稿します。</p>
+          <div class="ui-mock">
+            <div class="ui-mock-label">画面イメージ</div>
+            <div style="display:flex;gap:0;margin-bottom:12px;border:1px solid #ddd;border-radius:6px;overflow:hidden;width:fit-content;">
+              <div style="padding:5px 12px;background:#f5f5f5;color:#888;font-size:.8rem;">URL共有（トークン不要）</div>
+              <div style="padding:5px 12px;background:#663300;color:#fff;font-size:.8rem;font-weight:700;">API Token</div>
+            </div>
+            <div class="mock-input">Asset ID（Frame.io の動画アセット ID）</div>
+            <div class="mock-input">API Token（.env に設定済みなら空欄可）</div>
+            <div class="mock-btn" style="margin-top:4px;">コメントを投稿</div>
+          </div>
         </div>
       </div>
 
@@ -413,38 +337,63 @@
     </div>
   </div>
 
+  <!-- STEP 3 確認 -->
+  <div class="card">
+    <span class="step-label">STEP 3</span>
+    <h2>Frame.io でコメントを確認する</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Frame.io で動画を開く</h3>
+          <p>コメントを投稿した動画を Frame.io で開きます。タイムライン下部にコメントが並んでいます。各コメントのタイムコードをクリックするとその位置に動画がジャンプします。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>コメントの形式を確認する</h3>
+          <p>各コメントはルールコード付きで以下の形式で投稿されます。</p>
+          <div class="prompt-block"><pre>[HY1] テロップ「体に良いわけがない」→「体にいいわけがない」に修正</pre></div>
+          <div class="prompt-block"><pre>[HY2] テロップ「すごいよくなってきているといいますか」→「すごくよくなってきているといいますか」に修正</pre></div>
+          <div class="prompt-block"><pre>[CA] エンドカード「伊原 靖（イハラ ヤスシ」→閉じ括弧「）」が欠落。修正してください</pre></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FAQ -->
   <div class="card">
     <h2>よくある質問</h2>
 
     <div class="faq-item">
       <div class="faq-q">動画をアップロードしたのは編集者で、添削するのは別の人です。どうすればいいですか？</div>
-      <div class="faq-a">コメント投稿には、その動画へのアクセス権があるアカウントの API Token が必要です。<strong>方法 A：編集者に API Token を発行してもらい共有する</strong>（手軽でおすすめ）か、<strong>方法 B：編集者が添削担当者を Frame.io プロジェクトに Collaborator として招待し、添削担当者が自分の Token を使う</strong>、のどちらかで対応してください。</div>
+      <div class="faq-a"><strong>URL共有モード</strong>を使えば解決します。編集者から共有URLをもらって「URL共有（トークン不要）」タブに貼るだけでOKです。アカウントもトークンも必要ありません。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">Asset ID がどこにあるかわかりません</div>
-      <div class="faq-a">Frame.io でコメントしたい動画を開き、ブラウザのアドレスバーを確認してください。<code>/player/</code> または <code>/assets/</code> の後ろに続く長い文字列（ハイフン区切り）が Asset ID です。</div>
+      <div class="faq-q">共有URLがどんな形式かわかりません</div>
+      <div class="faq-a">Frame.io の共有URLは <code>https://app.frame.io/reviews/XXXXX</code> または <code>https://app.frame.io/v/XXXXX</code> の形式です。編集者に「Frame.io の共有リンクを送ってください」と伝えれば発行してもらえます。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「Frame.io トークンが必要です」というエラーが出ます</div>
-      <div class="faq-a">API Token の入力欄が空欄で、<code>.env</code> にも <code>FRAMEIO_TOKEN</code> が設定されていない状態です。STEP 1 を参考にトークンを発行して入力欄に貼り付けてください。</div>
+      <div class="faq-q">「URLの形式を認識できませんでした」というエラーが出ます</div>
+      <div class="faq-a">貼り付けたURLが Frame.io の共有リンク形式（<code>/reviews/</code> または <code>/v/</code> を含むURL）でない可能性があります。編集者に共有リンクを再発行してもらってください。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「HTTP 401」エラーが出ます</div>
-      <div class="faq-a">API Token が無効または期限切れです。Frame.io の Developer 設定で新しいトークンを発行し直してください。</div>
+      <div class="faq-q">「レビューリンクの情報を取得できませんでした」というエラーが出ます</div>
+      <div class="faq-a">共有リンクの有効期限が切れているか、URLが正しくコピーできていない可能性があります。編集者に共有リンクを再発行してもらってください。</div>
     </div>
 
     <div class="faq-item">
-      <div class="faq-q">「HTTP 403」エラーが出ます</div>
-      <div class="faq-a">Asset ID が間違っているか、そのアセットへのアクセス権がありません。自分のアカウントでアップロードした動画の Asset ID であることを確認してください。</div>
+      <div class="faq-q">「HTTP 401 / 403」エラーが出ます（API Token モード）</div>
+      <div class="faq-a">401 は Token が無効または期限切れ、403 は Asset ID が間違っているかアクセス権がありません。URL共有モードへの切り替えも検討してください。</div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q">コメントが重複して投稿されてしまいました</div>
-      <div class="faq-a">「コメントを投稿」ボタンを複数回押すと重複します。Frame.io 側で重複コメントを手動削除してください。投稿済みジョブには「エクスポート済み」バッジが表示されるので、次回からは確認してから押してください。</div>
+      <div class="faq-a">「コメントを投稿」ボタンを複数回押すと重複します。Frame.io 側で重複コメントを手動削除してください。</div>
     </div>
 
     <div class="faq-item">
