@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frame.io 自動投稿ガイド — FlarePocket</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #F7F2EF; color: #1A0D05; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1A0800 0%, #331200 100%);
+    color: #fff;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #E8620A;
+  }
+  header h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: .04em; flex: 1; }
+  .header-back {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+    color: #fff; padding: 6px 14px; border-radius: 6px;
+    font-size: .82rem; font-weight: 600; text-decoration: none;
+    white-space: nowrap; transition: opacity .15s;
+  }
+  .header-back:hover { opacity: .8; }
+
+  /* Container */
+  .container { max-width: 800px; margin: 0 auto; padding: 32px 16px 60px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1A0800 0%, #331200 60%, #4D1A00 100%);
+    color: #fff;
+    border-radius: 12px;
+    padding: 32px 28px;
+    margin-bottom: 24px;
+    border-left: none;
+    box-shadow: 0 4px 20px rgba(100,40,0,.2);
+  }
+  .hero-label { font-size: .72rem; font-weight: 700; letter-spacing: .12em; color: #F5860A; text-transform: uppercase; margin-bottom: 10px; }
+  .hero h2 { font-size: 1.55rem; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+  .hero p { font-size: .92rem; color: #F0D8C8; line-height: 1.75; }
+
+  /* Card */
+  .card {
+    background: #fff; border-radius: 10px; padding: 28px;
+    box-shadow: 0 1px 6px rgba(100,40,0,.08);
+    margin-bottom: 20px;
+    border-left: 3px solid #E8620A;
+  }
+  .step-label {
+    display: inline-block;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; font-size: .75rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 4px;
+    margin-bottom: 12px; letter-spacing: .06em;
+  }
+  h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: #1A0D05; }
+  h3 { font-size: .95rem; font-weight: 600; margin: 18px 0 8px; color: #663300; }
+  p, li { font-size: .93rem; line-height: 1.7; color: #333; }
+  ul { padding-left: 1.4em; }
+  li { margin-bottom: 6px; }
+
+  /* Steps */
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 16px; margin-bottom: 24px; }
+  .step:last-child { margin-bottom: 0; }
+  .step-num {
+    counter-increment: step;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #E8620A, #BF3800);
+    color: #fff; font-size: .88rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .step-num::after { content: counter(step); }
+  .step-body { flex: 1; }
+  .step-body h3 { margin-top: 0; }
+
+  /* Code */
+  code {
+    background: #FFF0E8; color: #C44A00;
+    padding: 2px 6px; border-radius: 4px;
+    font-size: .85rem; font-family: "SFMono-Regular", Consolas, monospace;
+  }
+  .code-block {
+    background: #FFF8F4; border: 1px solid #F5C4A0; border-radius: 8px;
+    padding: 12px 16px; margin: 10px 0;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: .87rem; line-height: 1.65; color: #2D1000;
+    word-break: break-all;
+  }
+  .code-block .hl { color: #E8620A; font-weight: 700; }
+
+  /* URL box */
+  .url-box {
+    background: #FFF8F4; border: 1px solid #F5C4A0; border-radius: 7px;
+    padding: 11px 14px; font-size: .85rem; color: #333;
+    word-break: break-all; margin: 8px 0; line-height: 1.6;
+  }
+
+  /* Note */
+  .note {
+    background: #FFF6EE; border-left: 3px solid #E8620A;
+    padding: 10px 14px; border-radius: 0 6px 6px 0;
+    font-size: .87rem; margin: 10px 0; color: #4D2000; line-height: 1.65;
+  }
+  .note-success {
+    background: #F0FAF4; border-left: 3px solid #27AE60;
+    padding: 10px 14px; border-radius: 0 6px 6px 0;
+    font-size: .87rem; margin: 10px 0; color: #1A4D2E; line-height: 1.65;
+  }
+  .note-warn {
+    background: #FFF8E6; border-left: 3px solid #F0A500;
+    padding: 10px 14px; border-radius: 0 6px 6px 0;
+    font-size: .87rem; margin: 10px 0; color: #5A3E00; line-height: 1.65;
+  }
+
+  /* UI Mock */
+  .ui-mock {
+    border: 1px solid #F5C4A0; border-radius: 8px;
+    padding: 14px 16px; background: #FFFAF6; margin: 10px 0;
+  }
+  .ui-mock-label { font-size: .72rem; color: #C08060; font-weight: 700; letter-spacing: .06em; margin-bottom: 10px; text-transform: uppercase; }
+  .mock-input {
+    background: #fff; border: 1px solid #ddd; border-radius: 6px;
+    padding: 9px 13px; font-size: .87rem; color: #aaa; width: 100%; margin-bottom: 6px;
+  }
+  .mock-btn {
+    display: inline-block; background: linear-gradient(135deg, #1A0800, #331200);
+    color: #fff; padding: 8px 18px; border-radius: 6px; font-size: .85rem; font-weight: 600;
+  }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; margin-top: 8px; }
+  th { background: #2D1000; color: #fff; text-align: left; padding: 8px 12px; font-weight: 600; }
+  td { padding: 9px 12px; border-bottom: 1px solid #F0EAE5; line-height: 1.6; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #FBF7F4; }
+
+  /* Flow */
+  .flow { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 12px 0; row-gap: 8px; }
+  .flow-item { background: #FFF0E8; color: #C44A00; border: 1px solid #F5C4A0; padding: 7px 14px; border-radius: 6px; font-size: .83rem; font-weight: 600; white-space: nowrap; }
+  .flow-item.done { background: #F0FAF4; color: #27AE60; border-color: #A8DFC0; }
+  .flow-arrow { color: #E8620A; font-size: 1rem; padding: 0 6px; }
+
+  /* FAQ */
+  .faq-item { border-bottom: 1px solid #F0EAE5; padding: 14px 0; }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-size: .92rem; font-weight: 600; color: #1A0D05; margin-bottom: 6px; display: flex; gap: 8px; }
+  .faq-q::before { content: "Q."; color: #E8620A; font-weight: 700; flex-shrink: 0; }
+  .faq-a { font-size: .88rem; color: #555; line-height: 1.7; padding-left: 22px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="assets/logo.png" alt="FlarePocket" style="height:32px;border-radius:4px;">
+  <h1>Frame.io 自動投稿ガイド</h1>
+  <a href="index.html" class="header-back">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    使用方法に戻る
+  </a>
+</header>
+
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-label">オプション機能ガイド</div>
+    <h2>Frame.io 自動コメント投稿</h2>
+    <p>FlarePocket で検出した添削指摘を、Frame.io の動画に<strong style="color:#fff;">タイムスタンプ付きのコメント</strong>として自動投稿する機能です。<br>一度設定すれば、ボタン一つで全指摘を一括投稿できます。</p>
+  </div>
+
+  <!-- 必要なもの -->
+  <div class="card">
+    <h2>📋 はじめる前に：必要なもの</h2>
+    <table>
+      <tr><th>必要なもの</th><th>説明</th><th>どこで入手？</th></tr>
+      <tr>
+        <td><strong>Frame.io アカウント</strong></td>
+        <td>動画がアップロードされているアカウント</td>
+        <td>frame.io（無料プランあり）</td>
+      </tr>
+      <tr>
+        <td><strong>Asset ID</strong></td>
+        <td>コメントを投稿したい動画の ID</td>
+        <td>Frame.io の動画 URL から取得（STEP 2 で説明）</td>
+      </tr>
+      <tr>
+        <td><strong>API Token</strong></td>
+        <td>FlarePocket が Frame.io を操作するための認証キー</td>
+        <td>Frame.io のアカウント設定から発行（STEP 1 で説明）</td>
+      </tr>
+    </table>
+    <div class="note" style="margin-top:14px;">💡 API Token は一度発行して <code>.env</code> に保存しておけば、次回以降は入力不要になります。</div>
+  </div>
+
+  <!-- 全体の流れ -->
+  <div class="card">
+    <h2>🔄 全体の流れ</h2>
+    <div class="flow">
+      <div class="flow-item">① API Token を発行</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">② Asset ID を確認</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">③ FlarePocket で添削</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">④ エクスポートボタンを押す</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item done">✓ Frame.io にコメントが届く</div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="card">
+    <span class="step-label">STEP 1</span>
+    <h2>API Token を発行する</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Frame.io にログインする</h3>
+          <p>ブラウザで <strong>app.frame.io</strong> を開き、アカウントにログインしてください。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>アカウント設定を開く</h3>
+          <p>画面左下のアカウントアイコン（プロフィール画像）をクリックし、メニューから <strong>「Account Settings」</strong> を選択します。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>「Developer」タブを開く</h3>
+          <p>左メニューの <strong>「Developer」</strong> をクリックします。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>新しいトークンを発行する</h3>
+          <p><strong>「New Token」</strong> ボタンをクリックし、わかりやすい名前（例：<code>FlarePocket</code>）を入力して作成します。</p>
+          <div class="note-warn">⚠️ トークンは作成直後にしか表示されません。必ずコピーして安全な場所に保管してください。</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>（推奨）.env に保存する</h3>
+          <p>プロジェクトフォルダの <code>.env</code> をテキストエディタで開き、以下の行を追加します。次回から入力欄を空欄にできます。</p>
+          <div class="code-block">FRAMEIO_TOKEN=<span class="hl">ここに発行したトークンを貼り付け</span></div>
+          <div class="note-success">✅ <code>.env</code> は Git にコミットされないため、安全にトークンを保管できます。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card">
+    <span class="step-label">STEP 2</span>
+    <h2>Asset ID を確認する</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>コメントを投稿したい動画を開く</h3>
+          <p>Frame.io でコメントを入れたい動画を開きます。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>URL から Asset ID を読み取る</h3>
+          <p>ブラウザのアドレスバーを確認します。URL は以下のような形式になっています。</p>
+          <div class="url-box">
+            https://app.frame.io/player/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong>
+          </div>
+          <p style="margin-top:6px;">または</p>
+          <div class="url-box">
+            https://app.frame.io/projects/xxxx/assets/<strong style="color:#E8620A;">a1b2c3d4-e5f6-7890-abcd-ef1234567890</strong>
+          </div>
+          <p style="margin-top:10px;"><span style="background:#FFF3CD;padding:2px 6px;border-radius:4px;font-size:.85rem;color:#856404;">オレンジ色の部分</span> が Asset ID です。ハイフン区切りの長い文字列（UUID 形式）になっています。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Asset ID をコピーする</h3>
+          <p>URL 末尾または <code>/player/</code> 以降の部分をコピーします。</p>
+          <div class="code-block"><span class="hl">a1b2c3d4-e5f6-7890-abcd-ef1234567890</span></div>
+          <div class="note">💡 動画を右クリック →「Copy Asset ID」でコピーできる場合もあります（Frame.io のバージョンにより異なります）。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="card">
+    <span class="step-label">STEP 3</span>
+    <h2>FlarePocket でエクスポートする</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>添削を完了させる</h3>
+          <p>FlarePocket の Webアプリ（<code>http://localhost:8000</code>）で動画 URL を入力し、添削が完了するまで待ちます。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>「Frame.io エクスポート」セクションを見つける</h3>
+          <p>添削レポートの下部に <strong>「Frame.io エクスポート」</strong> セクションが表示されています。</p>
+          <div class="ui-mock">
+            <div class="ui-mock-label">画面イメージ</div>
+            <div style="font-size:.78rem;font-weight:700;letter-spacing:.08em;color:#888;text-transform:uppercase;margin-bottom:10px;">FRAME.IO エクスポート</div>
+            <div class="mock-input">Asset ID（Frame.io の動画アセット ID）</div>
+            <div class="mock-input">API Token（.env に FRAMEIO_TOKEN 設定済みなら空欄可）</div>
+            <div class="mock-btn">コメントを投稿</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Asset ID と API Token を入力する</h3>
+          <table>
+            <tr><th>入力欄</th><th>入力内容</th></tr>
+            <tr>
+              <td>Asset ID</td>
+              <td>STEP 2 で確認した UUID（例：<code style="font-size:.8rem;">a1b2c3d4-e5f6-…</code>）</td>
+            </tr>
+            <tr>
+              <td>API Token</td>
+              <td>STEP 1 で発行したトークン。<code>.env</code> に設定済みなら<strong>空欄でOK</strong></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>「コメントを投稿」ボタンを押す</h3>
+          <p>ボタンをクリックすると、全指摘が一括で Frame.io に投稿されます。</p>
+          <div class="note-success">✅ <strong>「✓ N 件投稿成功」</strong> と表示されれば完了です。</div>
+          <div class="note">💡 見逃し追加した指摘も一緒に投稿されます。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="card">
+    <span class="step-label">STEP 4</span>
+    <h2>Frame.io でコメントを確認する</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>Frame.io で動画を開く</h3>
+          <p>コメントを投稿した動画を Frame.io で開きます。タイムライン下部にコメントが並んでいます。タイムコードをクリックするとその秒数に動画がジャンプします。</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num"></div>
+        <div class="step-body">
+          <h3>コメントの形式</h3>
+          <p>各コメントはルールコード付きで投稿されます。</p>
+          <div class="code-block"><span class="hl">[HY1]</span> テロップ「体に良いわけがない」→「体にいいわけがない」に修正</div>
+          <div class="code-block"><span class="hl">[HY2]</span> テロップ「すごいよくなってきているといいますか」→「すごくよくなってきているといいますか」に修正</div>
+          <div class="code-block"><span class="hl">[CA]</span> エンドカード「伊原 靖（イハラ ヤスシ」→閉じ括弧「）」が欠落。修正してください</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="card">
+    <h2>❓ よくある質問</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">Asset ID がどこにあるかわかりません</div>
+      <div class="faq-a">Frame.io でコメントしたい動画を開き、ブラウザのアドレスバーを確認してください。<code>/player/</code> または <code>/assets/</code> の後ろに続く長い文字列（ハイフン区切り）が Asset ID です。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">「Frame.io トークンが必要です」というエラーが出ます</div>
+      <div class="faq-a">API Token の入力欄が空欄で、かつ <code>.env</code> にも <code>FRAMEIO_TOKEN</code> が設定されていない状態です。STEP 1 を参考にトークンを発行して入力欄に貼り付けてください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">「HTTP 401」エラーが出ます</div>
+      <div class="faq-a">API Token が無効または期限切れです。Frame.io の Developer 設定で新しいトークンを発行し直してください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">「HTTP 403」エラーが出ます</div>
+      <div class="faq-a">Asset ID が間違っているか、そのアセットへのアクセス権がありません。自分のアカウントでアップロードした動画の Asset ID であることを確認してください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">コメントが重複して投稿されてしまいました</div>
+      <div class="faq-a">「コメントを投稿」ボタンを複数回押すと重複します。Frame.io 側で重複コメントを手動削除してください。投稿済みジョブには「エクスポート済み」バッジが表示されるので、次回からは確認してから押してください。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">それでも解決しない場合は？</div>
+      <div class="faq-a">伏見に気軽に聞いてください🙌</div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;color:#aaa;font-size:.82rem;padding-top:8px;">
+    FlarePocket &nbsp;|&nbsp; <a href="index.html" style="color:#E8620A;text-decoration:none;">使用方法に戻る</a>
+  </div>
+
+</div>
+</body>
+</html>
